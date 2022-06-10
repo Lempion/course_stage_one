@@ -25,13 +25,13 @@ $_SESSION['ANSWER'] = $result;
  * 3. Делаем переход на страницу авторизации
  */
 if ($result['ACCEPT']) {
-    $_SESSION['USER_EMAIL'] = $result['ACCEPT']['USER_EMAIL'];
+    $_SESSION['USER_EMAIL'] = $result['USER_EMAIL'];
     unset($_SESSION['ANSWER']['USER_EMAIL']);
 
     header('Location:../login.php');
     exit();
 }
 
-header('Location:../index.php');
+header('Location:../registration.php');
 exit();
 
