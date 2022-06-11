@@ -38,9 +38,9 @@ class DataBase
 
         $hashPass = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = ("INSERT INTO `users` (`email`,`password`) VALUES (?,?)");
+        $sql = $this->db->prepare("INSERT INTO `users` (`email`,`password`) VALUES (?,?)");
 
-        $this->db->prepare($sql)->execute([$email, $hashPass]);
+        $sql->execute([$email, $hashPass]);
 
         return ['ACCEPT' => 'Регистрация успешна', 'USER_EMAIL' => $email];
     }
@@ -54,7 +54,7 @@ class DataBase
      * Возвращает массив с ответом
      * @return array|string[]
      */
-    public function authorizationUser($email, $password, $rememberMe)
+    public function authorizationUser($email, $password, $rememberMe): array
     {
         $sql = $this->db->prepare("SELECT * FROM `users` WHERE `email`=?");
 
@@ -82,7 +82,7 @@ class DataBase
      * Возвращает true или false
      * @return boolean
      */
-    public function checkAdmin($email)
+    public function checkAdmin($email): bool
     {
         $sql = $this->db->prepare("SELECT `role` FROM `users` WHERE `email`=?");
 
@@ -90,12 +90,44 @@ class DataBase
 
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-        if ($result['role'] == 1){
+        if ($result['role'] == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
+    }
+
+    /**\
+     * @param $dataUser - массив с данными пользователя
+     * @param $email - отедльное почта
+     * @param $avatar - сразу наименование картинки для добавления в БД
+     * @return string[]
+     *      */
+    public function updateUser($dataUser, $email, $avatar = false)
+    {
+        // Нужно сделать проверку на аватарку, т.к если она есть то нужно записать её в массив
+        // и только после записать в массив почту, т.к это важно при создании sql, т.к почта всегда должна идти последней
+        if ($avatar) {
+            $dataUser[] = $avatar;
+        }
+
+        $dataUser[] = $email;
+
+        // Если аватрку передали, то добавлем доп. поле, если нет то просто ставим пробел
+        $sql = "UPDATE `users` SET `username`=?,`job`=?,`phone`=?,`address`=?,`status`=?,`vk`=?,`tg`=?,`inst`=?" . ($avatar ? ',`avatar`=? ' : ' ') . "WHERE `email`=?";
+
+        $sql = $this->db->prepare($sql);
+
+        $sql->execute($dataUser);
+
+        $error = $sql->errorInfo();
+
+        if (!$error[2]) {
+            return ['ACCEPT' => 'Пользователь добавлен'];
+        } else {
+            return ['ERROR' => 'Ошибка обнолвения данных'];
+        }
     }
 
 }

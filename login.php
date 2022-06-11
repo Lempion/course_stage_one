@@ -4,12 +4,13 @@ session_start();
 /**
  * Если пользователь авторизирован то редирект на основую страницу
  */
-if ($_SESSION['USER']){
+if ($_SESSION['USER']) {
     header('Location:index.php');
     exit();
 }
 
 $message = $_SESSION['ANSWER'];
+unset($_SESSION['ANSWER']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +51,10 @@ $message = $_SESSION['ANSWER'];
         <?php if ($message['ACCEPT']): ?>
             <div class="alert alert-success">
                 <?php echo $message['ACCEPT']; ?>
+            </div>
+        <?php elseif ($message['ERROR']): ?>
+            <div class="alert alert-danger">
+                <?php echo $message['ERROR']; ?>
             </div>
         <?php endif; ?>
 

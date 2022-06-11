@@ -38,6 +38,10 @@ if ($message = $_SESSION['ANSWER']) {
         <div class="alert alert-success">
             <?php echo $message['ACCEPT']; ?>
         </div>
+    <?php elseif ($message['ERROR']):?>
+        <div class="alert alert-danger">
+            <?php echo $message['ERROR']; ?>
+        </div>
     <?php endif; ?>
     <div class="subheader">
         <h1 class="subheader-title">
