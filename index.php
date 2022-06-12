@@ -5,7 +5,7 @@ require 'classes/DataBase.php';
 
 $dataBase = new DataBase();
 
-$admin = $dataBase->checkAdmin($_SESSION['USER']['email']);
+$admin = $dataBase->checkAdmin($_SESSION['USER']['id']);
 
 $dataUsers = $dataBase->getDataUsers();
 

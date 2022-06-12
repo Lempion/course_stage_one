@@ -9,7 +9,7 @@ $images = new Images();
 
 $fileName = false;
 
-$admin = $dataBase->checkAdmin($_SESSION['USER']['email']);
+$admin = $dataBase->checkAdmin($_SESSION['USER']['id']);
 
 if (!$admin || !$_POST) {
     header('Location:../index.php');
@@ -50,7 +50,7 @@ if (isset($resultCreateUser['ERROR'])) {
 // Нужно подготовить массив для отправки на добавление/обновление, для этого нужно убрать почту и пароль
 unset($dataPost['email'],$dataPost['password']);
 
-$updateDataUser = $dataBase->updateUser($dataPost, $_POST['email']);
+$updateDataUser = $dataBase->updateUser($dataPost, $resultCreateUser['USER_ID']);
 
 $_SESSION['ANSWER'] = $updateDataUser;
 

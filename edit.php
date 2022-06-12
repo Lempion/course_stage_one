@@ -9,7 +9,7 @@ if (!$_SESSION['USER']) {
 
 $dataBase = new DataBase();
 
-$dataUser = $dataBase->getDataUsers($_SESSION['USER']['email']);
+$dataUser = $dataBase->getDataUsers($_SESSION['USER']['id']);
 
 if (isset($dataUser['ERROR'])) {
     $_SESSION['ANSWER'] = $dataUser;

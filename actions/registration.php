@@ -26,7 +26,9 @@ $_SESSION['ANSWER'] = $result;
  */
 if ($result['ACCEPT']) {
     $_SESSION['USER_EMAIL'] = $result['USER_EMAIL'];
+    $_SESSION['USER_ID'] = $result['USER_ID'];
     unset($_SESSION['ANSWER']['USER_EMAIL']);
+    unset($_SESSION['ANSWER']['USER_ID']);
 
     header('Location:../login.php');
     exit();

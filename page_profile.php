@@ -10,7 +10,7 @@ if (!$_SESSION['USER']) {
 $dataBase = new DataBase();
 
 // Скорее всего нужно переписать на get параметр, чтобы получать данные любого пользователя
-$dataUser = $dataBase->getDataUsers($_SESSION['USER']['email']);
+$dataUser = $dataBase->getDataUsers($_SESSION['USER']['id']);
 
 if (isset($dataUser['ERROR'])) {
     $_SESSION['ANSWER'] = $dataUser;

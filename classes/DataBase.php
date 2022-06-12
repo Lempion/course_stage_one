@@ -42,7 +42,9 @@ class DataBase
 
         $sql->execute([$email, $hashPass]);
 
-        return ['ACCEPT' => 'Регистрация успешна', 'USER_EMAIL' => $email];
+        $userId = $this->db->lastInsertId();
+
+        return ['ACCEPT' => 'Регистрация успешна', 'USER_EMAIL' => $email, 'USER_ID' => $userId];
     }
 
     /**
@@ -77,16 +79,16 @@ class DataBase
 
     /**
      * Проверям роль пользователя на возможность администрирования
-     * @param $email - почта авторизированного пользователя
+     * @param $id - почта авторизированного пользователя
      *
      * Возвращает true или false
      * @return boolean
      */
-    public function checkAdmin($email): bool
+    public function checkAdmin($id): bool
     {
-        $sql = $this->db->prepare("SELECT `role` FROM `users` WHERE `email`=?");
+        $sql = $this->db->prepare("SELECT `role` FROM `users` WHERE `id`=?");
 
-        $sql->execute(array($email));
+        $sql->execute(array($id));
 
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -100,10 +102,10 @@ class DataBase
 
     /**\
      * @param $dataUser - массив с данными пользователя
-     * @param $email - почта
+     * @param $id - почта
      * @return string[]
      *      */
-    public function updateUser($dataUser, $email)
+    public function updateUser($dataUser, $id)
     {
         // Создаём пустую строку для заполнения её полями на отправку
         $addFields = '';
@@ -118,13 +120,13 @@ class DataBase
 
                 $addFields .= $item . '=?';
 
-                $sql = "UPDATE users SET " . $addFields . " WHERE email=?";
+                $sql = "UPDATE users SET " . $addFields . " WHERE id=?";
 
                 // После того как наша строка sql готова, нужно взять только значения нашего массива с данными
                 // и передать в execute. Но перед этим в послений элемент массива записать почту.
                 $dataForExecute = array_values($dataUser);
 
-                $dataForExecute[] = $email;
+                $dataForExecute[] = $id;
 
             } else {
                 $addFields .= $item . '=?,';
@@ -147,21 +149,21 @@ class DataBase
     }
 
     /**
-     * @param $email - если передали почту, значит нужно получить 1 человека. Нет - значит всех пользователей
+     * @param $id - если передали почту, значит нужно получить 1 человека. Нет - значит всех пользователей
      *
      * При успешном получении массив с данными, ингаче ошибку
      * @return array|string[]
      */
-    public function getDataUsers($email = null)
+    public function getDataUsers($id = null)
     {
         $sql = "SELECT * FROM `users`";
 
-        if (isset($email)) {
-            $sql .= " WHERE `email`=?";
+        if (isset($id)) {
+            $sql .= " WHERE `id`=?";
 
             $sql = $this->db->prepare($sql);
 
-            $sql->execute(array($email));
+            $sql->execute(array($id));
 
         } else {
             $sql = $this->db->query($sql);
@@ -184,7 +186,7 @@ class DataBase
         if ($dataForUpdate['email'] != $email) {
             $sql = "SELECT `id` FROM `users` WHERE `email`=?";
             $sql = $this->db->prepare($sql);
-            $sql->execute(array($email));
+            $sql->execute(array($dataForUpdate['email']));
 
             $checkUser = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -206,11 +208,11 @@ class DataBase
             return ['ERROR' => 'Ошибка получения данных'];
         }
 
-        $newPassword = password_hash($dataForUpdate['password'],PASSWORD_DEFAULT);
+        $newPassword = password_hash($dataForUpdate['password'], PASSWORD_DEFAULT);
 
         $sql = "UPDATE `users` SET `email`=?,`password`=? WHERE `id`=?";
         $sql = $this->db->prepare($sql);
-        $sql->execute([$email, $newPassword, $user['id']]);
+        $sql->execute([$dataForUpdate['email'], $newPassword, $user['id']]);
 
         $error = $sql->errorInfo();
 
