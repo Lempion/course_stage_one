@@ -17,11 +17,6 @@ if (isset($dataUser['ERROR'])) {
 }
 
 $dataUser = $dataUser[0];
-
-echo '<pre>';
-print_r($dataUser);
-echo '</pre>';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
