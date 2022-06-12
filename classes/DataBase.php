@@ -69,7 +69,7 @@ class DataBase
         $resultPass = password_verify($password, $result['password']);
 
         if ($resultPass) {
-            return ['ACCEPT' => 'Вы успешно авторизовались', 'USER' => ['email' => $email, 'pass' => $result['password']]];
+            return ['ACCEPT' => 'Вы успешно авторизовались', 'USER' => ['email' => $email, 'id' => $result['id']]];
         } else {
             return ['ERROR' => 'Введен не верный эл.адрес или пароль'];
         }

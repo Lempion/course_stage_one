@@ -11,6 +11,22 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/page_profile.php">Мой профиль<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/edit.php">Изменить информацию<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/status.php">Изменить статус<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/media.php">Изменить аватар<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/security.php">Изменить входные данные<span class="sr-only">(current)</span></a>
+            </li>
+
         </ul>
         <ul class="navbar-nav ml-auto">
             <?php if ($_SESSION['USER']): ?>

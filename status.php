@@ -46,9 +46,9 @@ if (!$_SESSION['USER']){
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
                                             <select class="form-control" id="example-select" name="status">
-                                                <option value="1">Онлайн</option>
-                                                <option value="2">Отошел</option>
-                                                <option value="3">Не беспокоить</option>
+                                                <option value="success">Онлайн</option>
+                                                <option value="warning">Отошел</option>
+                                                <option value="danger">Не беспокоить</option>
                                             </select>
                                         </div>
                                     </div>
