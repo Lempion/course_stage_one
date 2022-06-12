@@ -100,26 +100,37 @@ class DataBase
 
     /**\
      * @param $dataUser - массив с данными пользователя
-     * @param $email - отедльное почта
-     * @param $avatar - сразу наименование картинки для добавления в БД
+     * @param $email - почта
      * @return string[]
      *      */
-    public function updateUser($dataUser, $email, $avatar = false)
+    public function updateUser($dataUser, $email)
     {
-        // Нужно сделать проверку на аватарку, т.к если она есть то нужно записать её в массив
-        // и только после записать в массив почту, т.к это важно при создании sql, т.к почта всегда должна идти последней
-        if ($avatar) {
-            $dataUser[] = $avatar;
+        $addFields = '';
+
+        $dataCount = count($dataUser);
+        $count = 0;
+
+        foreach ($dataUser as $item => $value) {
+            $count++;
+            if ($count == $dataCount) {
+
+                $addFields .= $item . '=?';
+
+                $sql = "UPDATE users SET " . $addFields . " WHERE email=?";
+
+                $dataForExecute = array_values($dataUser);
+
+                $dataForExecute[] = $email;
+
+            } else {
+                $addFields .= $item . '=?,';
+            }
+
         }
-
-        $dataUser[] = $email;
-
-        // Если аватрку передали, то добавлем доп. поле, если нет то просто ставим пробел
-        $sql = "UPDATE `users` SET `username`=?,`job`=?,`phone`=?,`address`=?,`status`=?,`vk`=?,`tg`=?,`inst`=?" . ($avatar ? ',`avatar`=? ' : ' ') . "WHERE `email`=?";
 
         $sql = $this->db->prepare($sql);
 
-        $sql->execute($dataUser);
+        $sql->execute($dataForExecute);
 
         $error = $sql->errorInfo();
 
@@ -128,6 +139,7 @@ class DataBase
         } else {
             return ['ERROR' => 'Ошибка обнолвения данных'];
         }
+
     }
 
 }

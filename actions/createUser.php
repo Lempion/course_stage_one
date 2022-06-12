@@ -16,6 +16,9 @@ if (!$admin || !$_POST) {
     exit();
 }
 
+// Создаём массив с данными пользователя
+$dataPost = $_POST;
+
 // Проверяем загружали файл или нет
 if ($_FILES['avatar']['type']) {
     $fileName = $images->uploadImg($_FILES['avatar']);
@@ -25,6 +28,9 @@ if ($_FILES['avatar']['type']) {
         header('Location:../create_user.php');
         exit();
     }
+
+    // Если ошибку не выдало записываем название картинки
+    $dataPost['avatar'] = $fileName;
 }
 
 /**
@@ -40,16 +46,11 @@ if (isset($resultCreateUser['ERROR'])) {
     exit();
 }
 
-// Нужно подготовить массив для отправки на добавление, для этого нужно убрать почту и пароль
-$prepareDataPost = array_values($_POST);
 
-// Почта всегда будет под номером 4, а пароль под номером 5
-unset($prepareDataPost[4], $prepareDataPost[5]);
+// Нужно подготовить массив для отправки на добавление/обновление, для этого нужно убрать почту и пароль
+unset($dataPost['email'],$dataPost['password']);
 
-// Полсле того как убрали эти элементы нужно восстановить порядок ключей
-$dataPost = array_values($prepareDataPost);
-
-$updateDataUser = $dataBase->updateUser($dataPost, $_POST['email'], $fileName);
+$updateDataUser = $dataBase->updateUser($dataPost, $_POST['email']);
 
 $_SESSION['ANSWER'] = $updateDataUser;
 
