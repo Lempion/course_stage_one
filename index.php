@@ -91,7 +91,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -158,7 +158,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -225,7 +225,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -292,7 +292,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -359,7 +359,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -426,7 +426,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -493,7 +493,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
@@ -560,7 +560,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="status.php">
                                     <i class="fa fa-sun"></i>
                                     Установить статус</a>
-                                <a class="dropdown-item" href="media.html">
+                                <a class="dropdown-item" href="media.php">
                                     <i class="fa fa-camera"></i>
                                     Загрузить аватар
                                 </a>
