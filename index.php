@@ -10,9 +10,6 @@ $admin = $dataBase->checkAdmin($_SESSION['USER']['email']);
 if ($message = $_SESSION['ANSWER']) {
     unset($_SESSION['ANSWER']);
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +28,14 @@ if ($message = $_SESSION['ANSWER']) {
 </head>
 <body class="mod-bg-1 mod-nav-link">
 
-<?php require 'components/navbar.php'?>
+<?php require 'components/navbar.php' ?>
 
 <main id="js-page-content" role="main" class="page-content mt-3">
     <?php if ($message['ACCEPT']): ?>
         <div class="alert alert-success">
             <?php echo $message['ACCEPT']; ?>
         </div>
-    <?php elseif ($message['ERROR']):?>
+    <?php elseif ($message['ERROR']): ?>
         <div class="alert alert-danger">
             <?php echo $message['ERROR']; ?>
         </div>
@@ -88,7 +85,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -155,7 +152,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -222,7 +219,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -289,7 +286,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -356,7 +353,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -423,7 +420,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -490,7 +487,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">
@@ -557,7 +554,7 @@ if ($message = $_SESSION['ANSWER']) {
                                 <a class="dropdown-item" href="edit.php">
                                     <i class="fa fa-edit"></i>
                                     Редактировать</a>
-                                <a class="dropdown-item" href="security.html">
+                                <a class="dropdown-item" href="security.php">
                                     <i class="fa fa-lock"></i>
                                     Безопасность</a>
                                 <a class="dropdown-item" href="status.html">

@@ -178,4 +178,49 @@ class DataBase
 
     }
 
+    public function updateSecurityInformation($dataForUpdate, $email)
+    {
+
+        if ($dataForUpdate['email'] != $email) {
+            $sql = "SELECT `id` FROM `users` WHERE `email`=?";
+            $sql = $this->db->prepare($sql);
+            $sql->execute(array($email));
+
+            $checkUser = $sql->fetch(PDO::FETCH_ASSOC);
+
+            if ($checkUser) {
+                return ['ERROR' => 'Данный пользователь уже зарегистрирован'];
+            }
+
+        }
+
+        $sql = "SELECT `id` FROM `users` WHERE `email`=?";
+
+        $sql = $this->db->prepare($sql);
+
+        $sql->execute(array($email));
+
+        $user = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if (!isset($user['id'])) {
+            return ['ERROR' => 'Ошибка получения данных'];
+        }
+
+        $newPassword = password_hash($dataForUpdate['password'],PASSWORD_DEFAULT);
+
+        $sql = "UPDATE `users` SET `email`=?,`password`=? WHERE `id`=?";
+        $sql = $this->db->prepare($sql);
+        $sql->execute([$email, $newPassword, $user['id']]);
+
+        $error = $sql->errorInfo();
+
+        if (!$error[2]) {
+            return ['ACCEPT' => 'Пользователь обновлен'];
+        } else {
+            return ['ERROR' => 'Ошибка обнолвения данных'];
+        }
+
+
+    }
+
 }

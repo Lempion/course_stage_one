@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (!$_SESSION['USER']){
+    header('Location:/');
+}
+
+if ($_SESSION['ANSWER']){
+    $message = $_SESSION['ANSWER'];
+    unset($_SESSION['ANSWER']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +44,22 @@
         </div>
     </nav>
     <main id="js-page-content" role="main" class="page-content mt-3">
+        <?php if ($message['ACCEPT']): ?>
+            <div class="alert alert-success">
+                <?php echo $message['ACCEPT']; ?>
+            </div>
+        <?php elseif ($message['ERROR']):?>
+            <div class="alert alert-danger">
+                <?php echo $message['ERROR']; ?>
+            </div>
+        <?php endif; ?>
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-lock'></i> Безопасность
             </h1>
 
         </div>
-        <form action="">
+        <form action="actions/updateSecurity.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,19 +71,19 @@
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input type="text" id="simpleinput" class="form-control" value="<?php echo $_SESSION['USER']['email'];?>" name="email" required>
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" id="simpleinput" class="form-control" name="password" required>
                                 </div>
 
                                 <!-- password confirmation-->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Подтверждение пароля</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" id="simpleinput" class="form-control" name="passwordConfirm" required>
                                 </div>
 
 

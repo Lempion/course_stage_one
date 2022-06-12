@@ -3,6 +3,7 @@ session_start();
 
 if (!$_SESSION['USER']){
     header('Location:/');
+    exit();
 }
 
 require '../classes/DataBase.php';
