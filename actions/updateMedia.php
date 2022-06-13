@@ -1,18 +1,23 @@
 <?php
 session_start();
 
-if (!$_SESSION['USER']) {
-    header('Location:/');
-}
+require '../classes/Images.php';
+require '../classes/DataBase.php';
 
-if (!$_FILES['avatar']['tmp_name']) {
+if (!$_POST || !$_SESSION['USER']) {
+    header('Location:/');
+    exit();
+} elseif (!$_FILES['avatar']['tmp_name']) {
     $_SESSION['ANSWER'] = ['ERROR' => 'Ошибка загрузки файла'];
     header('Location:../media.php');
     exit();
 }
 
-require '../classes/Images.php';
-require '../classes/DataBase.php';
+$id = $_POST['id'];
+unset($_POST['id']);
+
+$oldAvatar = $_POST['oldAvatar'];
+unset($_POST['oldAvatar']);
 
 $images = new Images();
 $dataBase = new DataBase();
@@ -25,10 +30,12 @@ if (isset($fileName['ERROR'])) {
     exit();
 }
 
+if ($oldAvatar){
+    $images->removeImg($oldAvatar);
+}
+
 $dataAvatar = ['avatar' => $fileName];
 
-$id = $_POST['id'];
-unset($_POST['id']);
 
 $updateAvatar = $dataBase->updateUser($dataAvatar, $id);
 

@@ -25,12 +25,21 @@ class Images
         $path = "../images/$fileName";
 
         // Проверяем, загрузилась ли картинка
-        if (move_uploaded_file($dataFile['tmp_name'], $path)){
+        if (move_uploaded_file($dataFile['tmp_name'], $path)) {
             return $fileName;
-        }else{
-            return ['ERROR'=>'Ошибка загрузки картинки на сервер'];
+        } else {
+            return ['ERROR' => 'Ошибка загрузки картинки на сервер'];
         }
 
+    }
+
+    public function removeImg($fileName)
+    {
+        $path = "../images/" . $fileName;
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 
 }

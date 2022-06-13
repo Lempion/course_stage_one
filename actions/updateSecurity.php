@@ -3,8 +3,9 @@ session_start();
 
 require '../classes/DataBase.php';
 
-if (!$_SESSION['USER']) {
+if (!$_POST || !$_SESSION['USER']) {
     header('Location:/');
+    exit();
 }
 
 if ($_POST['password'] != $_POST['passwordConfirm']) {
