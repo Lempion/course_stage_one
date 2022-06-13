@@ -79,7 +79,7 @@ class DataBase
 
     /**
      * Проверям роль пользователя на возможность администрирования
-     * @param $id - почта авторизированного пользователя
+     * @param $id - идентификатор пользователя
      *
      * Возвращает true или false
      * @return boolean
@@ -102,7 +102,7 @@ class DataBase
 
     /**\
      * @param $dataUser - массив с данными пользователя
-     * @param $id - почта
+     * @param $id - идентификатор пользователя
      * @return string[]
      *      */
     public function updateUser($dataUser, $id)
@@ -149,7 +149,7 @@ class DataBase
     }
 
     /**
-     * @param $id - если передали почту, значит нужно получить 1 человека. Нет - значит всех пользователей
+     * @param $id - если передали идентификатор, значит нужно получить 1 человека. Нет - значит всех пользователей
      *
      * При успешном получении массив с данными, ингаче ошибку
      * @return array|string[]
@@ -180,13 +180,19 @@ class DataBase
 
     }
 
+    /**
+     * @param $dataForUpdate - Данные для обновления
+     * @param $id - идентификатор пользователя
+     * @return string[]
+     */
     public function updateSecurityInformation($dataForUpdate, $id)
     {
-
+        // Получаем из БД почту для сравнения
         $sql = $this->db->prepare("SELECT `email` FROM `users` WHERE `id`=?");
         $sql->execute(array($id));
         $email = $sql->fetch(PDO::FETCH_ASSOC)['email'];
 
+        // Если почта отличается значит нужно проверить, не зарегистрирована ли она уже
         if ($dataForUpdate['email'] != $email) {
             $sql = "SELECT `id` FROM `users` WHERE `email`=?";
             $sql = $this->db->prepare($sql);
@@ -200,6 +206,7 @@ class DataBase
 
         }
 
+        // Создаём новый пароль
         $newPassword = password_hash($dataForUpdate['password'], PASSWORD_DEFAULT);
 
         $sql = "UPDATE `users` SET `email`=?,`password`=? WHERE `id`=?";
@@ -217,6 +224,10 @@ class DataBase
 
     }
 
+    /**
+     * @param $id - идентификатор пользователя
+     * @return string[]
+     */
     public function removeUser($id)
     {
         $sql = "DELETE FROM `users` WHERE `id`=?";

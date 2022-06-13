@@ -33,6 +33,10 @@ class Images
 
     }
 
+    /**
+     * @param $fileName - название файла
+     * @return void
+     */
     public function removeImg($fileName)
     {
         $path = "../images/" . $fileName;
