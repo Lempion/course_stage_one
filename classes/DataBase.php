@@ -217,4 +217,19 @@ class DataBase
 
     }
 
+    public function removeUser($id)
+    {
+        $sql = "DELETE FROM `users` WHERE `id`=?";
+        $sql = $this->db->prepare($sql);
+        $sql->execute(array($id));
+
+        $error = $sql->errorInfo();
+
+        if (!$error[2]) {
+            return ['ACCEPT' => 'Пользователь удалён'];
+        } else {
+            return ['ERROR' => 'Ошибка удаления данных'];
+        }
+
+    }
 }

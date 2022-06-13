@@ -1,17 +1,17 @@
 <?php
 session_start();
 
-if (!$_SESSION['USER']) {
+require '../classes/DataBase.php';
+
+if (!$_POST || !$_SESSION['USER']) {
     header('Location:/');
     exit();
 }
 
-require '../classes/DataBase.php';
-
-$dataBase = new DataBase();
-
 $id = $_POST['id'];
 unset($_POST['id']);
+
+$dataBase = new DataBase();
 
 $result = $dataBase->updateUser($_POST, $id);
 

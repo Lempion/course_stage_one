@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require '../classes/DataBase.php';
+
 if (!$_POST || !$_SESSION['USER']) {
     header('Location:/');
     exit();
@@ -8,8 +10,6 @@ if (!$_POST || !$_SESSION['USER']) {
 
 $id = $_POST['id'];
 unset($_POST['id']);
-
-require '../classes/DataBase.php';
 
 $dataBase = new DataBase();
 

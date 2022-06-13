@@ -13,10 +13,11 @@ if ($message = $_SESSION['ANSWER']) {
     unset($_SESSION['ANSWER']);
 }
 
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
+$statuses = [
+    1 => 'success',
+    2 => 'warning',
+    3 => 'danger'
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +89,7 @@ echo '</pre>';
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
-                                <span class="status status-<?php echo $dataUser['status']; ?> mr-3">
+                                <span class="status status-<?php echo $statuses[$dataUser['status']]; ?> mr-3">
                                     <span class="rounded-circle profile-image d-block "
                                           style="background-image:url('images/<?php echo($dataUser['avatar'] ?: 'default.png') ?>'); background-size: cover;"></span>
                                 </span>
@@ -103,20 +104,20 @@ echo '</pre>';
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="edit.php?id=<?php echo $dataUser['id'];?>">
+                                        <a class="dropdown-item" href="edit.php?id=<?php echo $dataUser['id']; ?>">
                                             <i class="fa fa-edit"></i>
                                             Редактировать</a>
-                                        <a class="dropdown-item" href="security.php?id=<?php echo $dataUser['id'];?>">
+                                        <a class="dropdown-item" href="security.php?id=<?php echo $dataUser['id']; ?>">
                                             <i class="fa fa-lock"></i>
                                             Безопасность</a>
-                                        <a class="dropdown-item" href="status.php?id=<?php echo $dataUser['id'];?>">
+                                        <a class="dropdown-item" href="status.php?id=<?php echo $dataUser['id']; ?>">
                                             <i class="fa fa-sun"></i>
                                             Установить статус</a>
-                                        <a class="dropdown-item" href="media.php?id=<?php echo $dataUser['id'];?>">
+                                        <a class="dropdown-item" href="media.php?id=<?php echo $dataUser['id']; ?>">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
-                                        <a href="#" class="dropdown-item"
+                                        <a href="/actions/removeUser.php?id=<?php echo $dataUser['id'];?>&avatar=<?php echo $dataUser['avatar'];?>" class="dropdown-item"
                                            onclick="return confirm('are you sure?');">
                                             <i class="fa fa-window-close"></i>
                                             Удалить

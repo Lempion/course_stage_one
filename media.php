@@ -1,15 +1,11 @@
 <?php
 session_start();
 
+require 'classes/DataBase.php';
+
 if (!$_SESSION['USER']) {
     header('Location:/');
 }
-
-if ($message = $_SESSION['ANSWER']) {
-    unset($_SESSION['ANSWER']);
-}
-
-require 'classes/DataBase.php';
 
 $dataBase = new DataBase();
 
@@ -30,6 +26,9 @@ if (isset($dataUser['ERROR'])) {
 
 $dataUser = $dataUser[0];
 
+if ($message = $_SESSION['ANSWER']) {
+    unset($_SESSION['ANSWER']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +93,7 @@ $dataUser = $dataUser[0];
             </div>
         </div>
         <input type="hidden" value="<?php echo $id; ?>" name="id">
+        <input type="hidden" value="<?php echo $dataUser['avatar']; ?>" name="oldAvatar">
     </form>
 </main>
 

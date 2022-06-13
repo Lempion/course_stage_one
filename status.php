@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require 'classes/DataBase.php';
+
 if (!$_SESSION['USER']) {
     header('Location:/');
     exit();
@@ -11,8 +13,6 @@ $statuses = [
     2 => 'Отошел',
     3 => 'Не беспокоить'
 ];
-
-require 'classes/DataBase.php';
 
 $dataBase = new DataBase();
 

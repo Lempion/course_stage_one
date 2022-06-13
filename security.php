@@ -1,16 +1,11 @@
 <?php
 session_start();
 
+require 'classes/DataBase.php';
+
 if (!$_SESSION['USER']) {
     header('Location:/');
 }
-
-if ($_SESSION['ANSWER']) {
-    $message = $_SESSION['ANSWER'];
-    unset($_SESSION['ANSWER']);
-}
-
-require 'classes/DataBase.php';
 
 $dataBase = new DataBase();
 
@@ -30,6 +25,11 @@ if (isset($dataUser['ERROR'])) {
 }
 
 $dataUser = $dataUser[0];
+
+if ($_SESSION['ANSWER']) {
+    $message = $_SESSION['ANSWER'];
+    unset($_SESSION['ANSWER']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
