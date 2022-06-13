@@ -1,9 +1,35 @@
 <?php
 session_start();
 
+if (!$_SESSION['USER']) {
+    header('Location:/');
+}
+
 if ($message = $_SESSION['ANSWER']) {
     unset($_SESSION['ANSWER']);
 }
+
+require 'classes/DataBase.php';
+
+$dataBase = new DataBase();
+
+$admin = $dataBase->checkAdmin($_SESSION['USER']['id']);
+
+if ($_GET['id'] && $admin) {
+    $id = $_GET['id'];
+} else {
+    $id = $_SESSION['USER']['id'];
+}
+
+$dataUser = $dataBase->getDataUsers($id);
+
+if (isset($dataUser['ERROR'])) {
+    $_SESSION['ANSWER'] = $dataUser;
+    header('Location:/');
+}
+
+$dataUser = $dataUser[0];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +75,8 @@ if ($message = $_SESSION['ANSWER']) {
                         </div>
                         <div class="panel-content">
                             <div class="form-group">
-                                <img src="img/demo/authors/josh.png" alt="" class="img-responsive" width="200">
+                                <img src="images/<?php echo($dataUser['avatar'] ?: 'default.png') ?>" alt=""
+                                     class="img-responsive" width="200">
                             </div>
 
                             <div class="form-group">
@@ -66,6 +93,7 @@ if ($message = $_SESSION['ANSWER']) {
                 </div>
             </div>
         </div>
+        <input type="hidden" value="<?php echo $id; ?>" name="id">
     </form>
 </main>
 

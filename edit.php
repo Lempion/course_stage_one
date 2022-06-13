@@ -9,7 +9,15 @@ if (!$_SESSION['USER']) {
 
 $dataBase = new DataBase();
 
-$dataUser = $dataBase->getDataUsers($_SESSION['USER']['id']);
+$admin = $dataBase->checkAdmin($_SESSION['USER']['id']);
+
+if ($_GET['id'] && $admin){
+    $id = $_GET['id'];
+}else{
+    $id = $_SESSION['USER']['id'];
+}
+
+$dataUser = $dataBase->getDataUsers($id);
 
 if (isset($dataUser['ERROR'])) {
     $_SESSION['ANSWER'] = $dataUser;
@@ -89,6 +97,7 @@ $dataUser = $dataUser[0];
                 </div>
             </div>
         </div>
+        <input type="hidden" value="<?php echo $id;?>" name="id">
     </form>
 </main>
 

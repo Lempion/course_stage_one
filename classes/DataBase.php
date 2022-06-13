@@ -180,8 +180,12 @@ class DataBase
 
     }
 
-    public function updateSecurityInformation($dataForUpdate, $email)
+    public function updateSecurityInformation($dataForUpdate, $id)
     {
+
+        $sql = $this->db->prepare("SELECT `email` FROM `users` WHERE `id`=?");
+        $sql->execute(array($id));
+        $email = $sql->fetch(PDO::FETCH_ASSOC)['email'];
 
         if ($dataForUpdate['email'] != $email) {
             $sql = "SELECT `id` FROM `users` WHERE `email`=?";
@@ -196,23 +200,11 @@ class DataBase
 
         }
 
-        $sql = "SELECT `id` FROM `users` WHERE `email`=?";
-
-        $sql = $this->db->prepare($sql);
-
-        $sql->execute(array($email));
-
-        $user = $sql->fetch(PDO::FETCH_ASSOC);
-
-        if (!isset($user['id'])) {
-            return ['ERROR' => 'Ошибка получения данных'];
-        }
-
         $newPassword = password_hash($dataForUpdate['password'], PASSWORD_DEFAULT);
 
         $sql = "UPDATE `users` SET `email`=?,`password`=? WHERE `id`=?";
         $sql = $this->db->prepare($sql);
-        $sql->execute([$dataForUpdate['email'], $newPassword, $user['id']]);
+        $sql->execute([$dataForUpdate['email'], $newPassword, $id]);
 
         $error = $sql->errorInfo();
 

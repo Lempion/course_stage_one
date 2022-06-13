@@ -1,16 +1,19 @@
 <?php
 session_start();
 
-if (!$_POST && !$_SESSION['USERS']) {
+if (!$_POST || !$_SESSION['USER']) {
     header('Location:/');
     exit();
 }
+
+$id = $_POST['id'];
+unset($_POST['id']);
 
 require '../classes/DataBase.php';
 
 $dataBase = new DataBase();
 
-$result = $dataBase->updateUser($_POST, $_SESSION['USER']['id']);
+$result = $dataBase->updateUser($_POST, $id);
 
 $_SESSION['ANSWER'] = $result;
 

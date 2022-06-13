@@ -13,11 +13,14 @@ if ($_POST['password'] != $_POST['passwordConfirm']) {
     exit();
 }
 
+$id = $_POST['id'];
+unset($_POST['id']);
+
 $dataBase = new DataBase();
 
-$result = $dataBase->updateSecurityInformation($_POST, $_SESSION['USER']['email']);
+$result = $dataBase->updateSecurityInformation($_POST, $id);
 
-if ($result['ACCEPT']) {
+if ($result['ACCEPT'] && ($id == $_SESSION['USER']['id'])) {
     $_SESSION['USER']['email'] = $_POST['email'];
 }
 $_SESSION['ANSWER'] = $result;

@@ -11,6 +11,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
             </li>
+            <?php if (isset($_SESSION['USER'])): ?>
             <li class="nav-item active">
                 <a class="nav-link" href="/page_profile.php">Мой профиль<span class="sr-only">(current)</span></a>
             </li>
@@ -26,7 +27,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/security.php">Изменить входные данные<span class="sr-only">(current)</span></a>
             </li>
-
+<?php endif;?>
         </ul>
         <ul class="navbar-nav ml-auto">
             <?php if ($_SESSION['USER']): ?>

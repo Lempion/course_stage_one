@@ -27,7 +27,10 @@ if (isset($fileName['ERROR'])) {
 
 $dataAvatar = ['avatar' => $fileName];
 
-$updateAvatar = $dataBase->updateUser($dataAvatar, $_SESSION['USER']['id']);
+$id = $_POST['id'];
+unset($_POST['id']);
+
+$updateAvatar = $dataBase->updateUser($dataAvatar, $id);
 
 $_SESSION['ANSWER'] = $updateAvatar;
 header('Location:/');
